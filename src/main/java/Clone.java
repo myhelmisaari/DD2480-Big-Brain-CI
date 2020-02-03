@@ -7,6 +7,9 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.Callable;
+
+import static java.util.Collections.singleton;
 
 public class Clone {
     public static void main(String[] args) throws GitAPIException, IOException {
@@ -14,6 +17,10 @@ public class Clone {
         Git.cloneRepository()
                 .setURI("https://github.com/myhelmisaari/DD2480-Big-Brain-CI.git")
                 .setDirectory(localPath) // #1
+                .setBranchesToClone( singleton( "refs/heads/assessment" ))
+                .setBranch( "refs/heads/assessment" )
                 .call();
+        
         }
-    }
+
+}
