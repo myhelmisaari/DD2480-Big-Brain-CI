@@ -46,7 +46,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
     public static void main(String[] args) throws Exception
     {
         Server server = new Server(8083);
-        server.setHandler(new ContinuousIntegrationServer()); 
+        server.setHandler(new ContinuousIntegrationServer());
         server.start();
         server.join();
     }
@@ -64,6 +64,8 @@ public class ContinuousIntegrationServer extends AbstractHandler
     }
 
     private static void notifyUser(){
+        // After the test is executed, gradle will create a file in /build/test-results/test/TEST-HelloWorldTest.xml
+        // Examine and report the contents of this file.
 
     }
 }
