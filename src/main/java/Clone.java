@@ -10,10 +10,9 @@ import java.io.IOException;
 
 public class Clone {
     public static void main(String[] args) throws GitAPIException, IOException {
-
-        File localPath = File.createTempFile("TestGitRepository", "");
+        File localPath = new File("repo/");
         Git.cloneRepository()
-                .setURI("https://github.com/github/testrepo.git")
+                .setURI("https://github.com/myhelmisaari/DD2480-Big-Brain-CI.git")
                 .setDirectory(localPath) // #1
                 .call();
         }
