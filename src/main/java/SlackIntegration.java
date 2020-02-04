@@ -14,6 +14,15 @@ public class SlackIntegration {
     private static final String bigBrainSlackHookURLBase64 = "aHR0cHM6Ly9ob29rcy5zbGFjay5jb20vc2VydmljZXMvVFNaOE41TkJZL0JUSjNRRjg3UC92TzlwTnIwa3lNZHJXbTVNbmprQjNLeWo=";
 
     /**
+     * Send a message in the Slack channel that this class is configured for.
+     * @param message the string you want to send. May contain emojis like ":clap:" etc.
+     * @return true if the message was sent successfully, false otherwise.
+     */
+    public static boolean sendMessage(String message) {
+        return sendPOST(bigBrainSlackHookURLBase64, new JSONObject().put("text", message));
+    }
+
+    /**
      * Send an HTTP POST request.
      * @param URL the destination of the request, base64 encoded.
      * @param requestBody what JSON you want to send.
@@ -39,7 +48,7 @@ public class SlackIntegration {
     }
 
     private static String decodeBase64(String encoded) {
-        byte[] decodedBytes = java.util.Base64.getDecoder().decode(bigBrainSlackHookURLBase64);
+        byte[] decodedBytes = java.util.Base64.getDecoder().decode(encoded);
         return new String(decodedBytes);
     }
 

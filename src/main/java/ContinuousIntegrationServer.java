@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /** 
  Skeleton of a ContinuousIntegrationServer which acts as webhook
@@ -17,7 +18,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
                        Request baseRequest,
                        HttpServletRequest request,
                        HttpServletResponse response) 
-        throws IOException, ServletException
+        throws IOException
     {
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
@@ -49,6 +50,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         server.setHandler(new ContinuousIntegrationServer());
         server.start();
         server.join();
+        notifyUser();
     }
 
     private static void cloneTheProject(){
@@ -63,9 +65,10 @@ public class ContinuousIntegrationServer extends AbstractHandler
 
     }
 
-    private static void notifyUser(){
-        // After the test is executed, gradle will create a file in /build/test-results/test/TEST-HelloWorldTest.xml
-        // Examine and report the contents of this file.
+    private static void notifyUser() {
+        List<TestResultsParser.TestResult> testResults = TestResultsParser.getResults();
 
+        String message = testResults.toString();
+        SlackIntegration.sendMessage(message);
     }
 }
