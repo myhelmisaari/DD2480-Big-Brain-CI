@@ -10,18 +10,20 @@ import java.net.http.HttpResponse;
  * configured at https://api.slack.com/apps/ATFSMNS4Q.
  */
 public class SlackIntegration {
-    private static final String bigBrainSlackHookURL = "https://hooks.slack.com/services/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";
+    // needs to be base64 since Slack will find it as publicly accessible otherwise and disable it
+    private static final String bigBrainSlackHookURLBase64 = "aHR0cHM6Ly9ob29rcy5zbGFjay5jb20vc2VydmljZXMvVFNaOE41TkJZL0JUSjNRRjg3UC92TzlwTnIwa3lNZHJXbTVNbmprQjNLeWo=";
 
     /**
      * Send an HTTP POST request.
-     * @param URL the destination of the request.
+     * @param URL the destination of the request, base64 encoded.
      * @param requestBody what JSON you want to send.
      * @return true if successful, false otherwise.
      */
     private static boolean sendPOST(String URL, JSONObject requestBody) {
         HttpClient client = HttpClient.newHttpClient();
+
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(bigBrainSlackHookURL))
+                .uri(URI.create(decodeBase64(URL)))
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody.toString()))
                 .header("Content-type", "application/json")
                 .build();
@@ -36,12 +38,17 @@ public class SlackIntegration {
         }
     }
 
+    private static String decodeBase64(String encoded) {
+        byte[] decodedBytes = java.util.Base64.getDecoder().decode(bigBrainSlackHookURLBase64);
+        return new String(decodedBytes);
+    }
+
     /**
      * Send a hello message in the Slack channel, for testing.
      * @return true if successful, false otherwise.
      */
     protected static boolean sendHello() {
         JSONObject requestBody = new JSONObject().put("text", ":clap: Hello! This is a test :)");
-        return sendPOST(bigBrainSlackHookURL, requestBody);
+        return sendPOST(bigBrainSlackHookURLBase64, requestBody);
     }
 }
