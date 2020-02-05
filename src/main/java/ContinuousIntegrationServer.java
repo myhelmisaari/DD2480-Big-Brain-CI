@@ -1,11 +1,25 @@
+import org.apache.commons.io.FileUtils;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.PullResult;
+import org.eclipse.jgit.api.errors.GitAPIException;
+
+import org.eclipse.jgit.api.errors.JGitInternalException;
+import org.eclipse.jgit.lib.Repository;
+import org.apache.commons.io.filefilter.HiddenFileFilter;
+import org.apache.commons.io.FileUtils.*;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
+
+import static java.util.Collections.singleton;
 
 /** 
  Skeleton of a ContinuousIntegrationServer which acts as webhook
@@ -23,8 +37,6 @@ public class ContinuousIntegrationServer extends AbstractHandler
         response.setStatus(HttpServletResponse.SC_OK);
         baseRequest.setHandled(true);
 
-        System.out.println(target);
-
         // here you do all the continuous integration tasks
         // for example
         // 1st clone your repository
@@ -33,15 +45,8 @@ public class ContinuousIntegrationServer extends AbstractHandler
         compile();
         runTests();
         notifyUser();
-
-        response.getWriter().println("CI job done");
-        response.getWriter().println(baseRequest);
-        response.getWriter().println(request);
-        response.getWriter().println(response);
-
-
     }
- 
+
     // used to start the CI server in command line
     public static void main(String[] args) throws Exception
     {
@@ -51,8 +56,23 @@ public class ContinuousIntegrationServer extends AbstractHandler
         server.join();
     }
 
-    private static void cloneTheProject(){
-
+    /**
+     * Clones the assessment branch from the GitHub repository.
+     */
+    private static void cloneTheProject() throws IOException{
+        File localPath = new File("assessment/");
+        FileUtils.deleteDirectory(localPath);
+        localPath = new File("assessment/");
+        try {
+            Git.cloneRepository()
+                    .setURI("https://github.com/myhelmisaari/DD2480-Big-Brain-CI.git")
+                    .setDirectory(localPath)// #1
+                    .setBranchesToClone(singleton("refs/heads/assessment"))
+                    .setBranch("refs/heads/assessment")
+                    .call();
+        } catch (GitAPIException ex) {
+            System.out.println("exception");
+        }
     }
 
     private static void compile(){
