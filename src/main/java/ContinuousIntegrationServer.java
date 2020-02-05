@@ -88,7 +88,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
     private static void build(File file){
         connection = GradleConnector.newConnector()
                 .forProjectDirectory(file).connect();
-        BuildLauncher build = connection.newBuild().forTasks("build").run();
+        BuildLauncher build = connection.newBuild().forTasks("build");
         try {
             build.run();
             System.out.println("building");
