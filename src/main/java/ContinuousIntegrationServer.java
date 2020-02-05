@@ -8,6 +8,9 @@ import org.gradle.tooling.BuildLauncher;
 import org.gradle.tooling.GradleConnector;
 import org.gradle.tooling.ProjectConnection;
 
+
+import javax.servlet.ServletException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -22,7 +25,7 @@ import static java.util.Collections.singleton;
 */
 public class ContinuousIntegrationServer extends AbstractHandler
 {
-    private static ProjectConnection connection;
+
     public void handle(String target,
                        Request baseRequest,
                        HttpServletRequest request,
@@ -45,10 +48,12 @@ public class ContinuousIntegrationServer extends AbstractHandler
     // used to start the CI server in command line
     public static void main(String[] args) throws Exception
     {
+
         Server server = new Server(8083);
         server.setHandler(new ContinuousIntegrationServer());
         server.start();
         server.join();
+      //  build();
     }
 
     /**
@@ -74,6 +79,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         return localPath;
     }
 
+
     /**
      * This method will build (compile an test) the project contained in the file given
      *  as argument
@@ -85,9 +91,11 @@ public class ContinuousIntegrationServer extends AbstractHandler
         BuildLauncher build = connection.newBuild();
         try {
             build.run();
+            System.out.println("building");
         }finally {
             connection.close();
         }
+        System.out.println("wahah");
     }
 
     /**
