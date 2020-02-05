@@ -35,9 +35,12 @@ _Axel Kennedal_
     
 _My Helmisaari_
  * this README
+ * Compiling and testing with GradleConnector
 
        
 _Henrik Mellin_
+ * Webhook GitHub
+ * Cloning the project
 
    
 _Mathieu Desponds_
