@@ -40,6 +40,8 @@ _Henrik Mellin_
    
 _Mathieu Desponds_
  * this README
+ * The structure of the project including the Gradle part 
+ * The assessment branch 
     
 ## Troubleshooting
 ### IntelliJ
