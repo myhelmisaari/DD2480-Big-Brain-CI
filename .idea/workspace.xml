@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0dfaddfc-d6f4-44f4-b286-b9d7f407a799" name="Default Changelist" comment="fix: save slack webhook URL as Base64">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/TestResultsParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/TestResultsParserTests.java" afterDir="false" />
+    <list default="true" id="0dfaddfc-d6f4-44f4-b286-b9d7f407a799" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ContinuousIntegrationServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ContinuousIntegrationServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SlackIntegration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SlackIntegration.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,6 +176,13 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.ContinuousIntegrationServer" />
+      <item itemvalue="Gradle.SlackIntegrationTests" />
+      <item itemvalue="Gradle.SlackIntegrationTests.canSendHello" />
+      <item itemvalue="Gradle.TestResultsParserTests.getSomeResult" />
+      <item itemvalue="Gradle.Tests in 'DD2480-Big-Brain-CI.test'" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.Tests in 'DD2480-Big-Brain-CI.test'" />
