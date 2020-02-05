@@ -29,13 +29,18 @@ There are two branches. One `master` and one called `assessment`, the `assessmen
 
 ### Statement of Contributions
 _Axel Kennedal_
-
+* created the Slack app
+* implemented Slack integration for notifications
+* implemented parsing Gradle test results XML
     
 _My Helmisaari_
  * this README
+ * Compiling and testing with GradleConnector
 
        
 _Henrik Mellin_
+ * Webhook GitHub
+ * Cloning the project
 
    
 _Mathieu Desponds_
