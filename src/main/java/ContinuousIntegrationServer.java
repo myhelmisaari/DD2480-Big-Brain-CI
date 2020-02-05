@@ -5,18 +5,24 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 
-/** 
+import org.gradle.tooling.BuildLauncher;
+import org.gradle.tooling.GradleConnector;
+import org.gradle.tooling.ProjectConnection;
+
+/**
  Skeleton of a ContinuousIntegrationServer which acts as webhook
  See the Jetty documentation for API documentation of those classes.
 */
 public class ContinuousIntegrationServer extends AbstractHandler
 {
+    private static ProjectConnection connection;
     public void handle(String target,
                        Request baseRequest,
                        HttpServletRequest request,
-                       HttpServletResponse response) 
+                       HttpServletResponse response)
         throws IOException, ServletException
     {
         response.setContentType("text/html;charset=utf-8");
@@ -30,8 +36,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         // 1st clone your repository
         cloneTheProject();
         // 2nd compile the code
-        compile();
-        runTests();
+        build();
         notifyUser();
 
         response.getWriter().println("CI job done");
@@ -41,12 +46,12 @@ public class ContinuousIntegrationServer extends AbstractHandler
 
 
     }
- 
+
     // used to start the CI server in command line
     public static void main(String[] args) throws Exception
     {
         Server server = new Server(8083);
-        server.setHandler(new ContinuousIntegrationServer()); 
+        server.setHandler(new ContinuousIntegrationServer());
         server.start();
         server.join();
     }
@@ -55,12 +60,16 @@ public class ContinuousIntegrationServer extends AbstractHandler
 
     }
 
-    private static void compile(){
-
-    }
-
-    private static void runTests(){
-
+    private static void build(){
+        System.out.println("BUILD");
+        connection = GradleConnector.newConnector()
+                .forProjectDirectory(new File("./Filename")).connect();
+        BuildLauncher build = connection.newBuild();
+        try {
+            build.run();
+        }finally {
+            connection.close();
+        }
     }
 
     private static void notifyUser(){
