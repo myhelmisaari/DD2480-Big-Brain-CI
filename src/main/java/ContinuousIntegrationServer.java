@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import static java.util.Collections.singleton;
 
@@ -49,6 +50,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         server.setHandler(new ContinuousIntegrationServer());
         server.start();
         server.join();
+        notifyUser();
     }
 
     /**
@@ -81,7 +83,10 @@ public class ContinuousIntegrationServer extends AbstractHandler
         }
     }
 
-    private static void notifyUser(){
+    private static void notifyUser() {
+        List<TestResultsParser.TestResult> testResults = TestResultsParser.getResults();
 
+        String message = testResults.toString();
+        SlackIntegration.sendMessage(message);
     }
 }
