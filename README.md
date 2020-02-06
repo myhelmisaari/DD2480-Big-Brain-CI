@@ -32,6 +32,7 @@ All you have to do is open a new terminal window and use the command `./ngrok ht
 After this you have to set up a Webhook. This can be done on the Github repository online.
 1. Go to `Settings >> Webhooks`, click on `Add webhook`.
 1. Paste the forwarding URL that `ngrok` provides (for example `https://7al9b010.ngrok.io`) in the payload field and proceed to click `Add webhook`. Nothing else is required than the URL.
+
 Now the CI-server should be ready to be used. 
 
 ### Using the CI-server
