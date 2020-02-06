@@ -39,20 +39,21 @@ public class ContinuousIntegrationServer extends AbstractHandler
         // here you do all the continuous integration tasks
         // for example
         // 1st clone your repository
-        File f = cloneTheProject("https://github.com/myhelmisaari/DD2480-Big-Brain-CI.git");
+        cloneTheProject("https://github.com/myhelmisaari/DD2480-Big-Brain-CI.git");
         // 2nd compile the code
-        build(f);
+        build(new File(""));
         notifyUser();
     }
 
     // used to start the CI server in command line
     public static void main(String[] args) throws Exception
     {
-
-        Server server = new Server(8083);
-        server.setHandler(new ContinuousIntegrationServer());
-        server.start();
-        server.join();
+//
+//        Server server = new Server(8083);
+//        server.setHandler(new ContinuousIntegrationServer());
+//        server.start();
+//        server.join();
+        cloneTheProject("https://github.com/myhelmisaari/DD2480-Big-Brain-CI.git");
       //  build();
     }
 
@@ -62,21 +63,13 @@ public class ContinuousIntegrationServer extends AbstractHandler
      * @return the file that contains the file of the GitHub project
      * @throws IOException
      */
-    private static File cloneTheProject(String gitHubHTTPS) throws IOException{
-        File localPath = new File("assessment/");
-        FileUtils.deleteDirectory(localPath);
-        localPath = new File("assessment/");
+    private static void cloneTheProject(String gitHubHTTPS) {
         try {
-            Git.cloneRepository()
-                    .setURI(gitHubHTTPS)
-                    .setDirectory(localPath)// #1
-                    .setBranchesToClone(singleton("refs/heads/assessment"))
-                    .setBranch("refs/heads/assessment")
-                    .call();
-        } catch (GitAPIException ex) {
-            System.out.println("Exception with the Git API");
+            // Execute command
+            String command = "cmd /c start cmd.exe /C \"git clone "+gitHubHTTPS+" assessmentDir\"";
+            Process child = Runtime.getRuntime().exec(command);
+        } catch (IOException e) {
         }
-        return localPath;
     }
 
 
