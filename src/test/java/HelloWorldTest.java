@@ -9,8 +9,4 @@ class HelloWorldTest {
         System.out.println("Testing ------------------------------------");
         assertEquals(1,HelloWorld.returnOne());
     }
-    @Test
-    void returnOneTestFalse() {
-        assertEquals(0,HelloWorld.returnOne());
-    }
 }
