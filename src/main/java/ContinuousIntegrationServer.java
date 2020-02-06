@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static java.util.Collections.singleton;
 
@@ -41,7 +42,8 @@ public class ContinuousIntegrationServer extends AbstractHandler
         // 1st clone your repository
         cloneTheProject("https://github.com/myhelmisaari/DD2480-Big-Brain-CI.git");
         // 2nd compile the code
-        build(new File(""));
+        build();
+
         notifyUser();
     }
 
@@ -54,7 +56,12 @@ public class ContinuousIntegrationServer extends AbstractHandler
 //        server.start();
 //        server.join();
         cloneTheProject("https://github.com/myhelmisaari/DD2480-Big-Brain-CI.git");
-      //  build();
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        build();
     }
 
     /**
@@ -69,7 +76,8 @@ public class ContinuousIntegrationServer extends AbstractHandler
             String command = "cmd /c start cmd.exe /C " +
                     "\"git clone "+gitHubHTTPS+" -b assessment --single-branch assessmentDir\"";
             Process child = Runtime.getRuntime().exec(command);
-        } catch (IOException e) {
+            child.waitFor();
+        } catch (IOException | InterruptedException e) {
         }
     }
 
@@ -77,19 +85,15 @@ public class ContinuousIntegrationServer extends AbstractHandler
     /**
      * This method will build (compile an test) the project contained in the file given
      *  as argument
-     * @param file The file that contains the project we want to build
      */
-    private static void build(File file){
-        ProjectConnection connection = GradleConnector.newConnector()
-                .forProjectDirectory(file).connect();
-        BuildLauncher build = connection.newBuild().forTasks("build");
+    private static void build(){
         try {
-            build.run();
-            System.out.println("building");
-        }finally {
-            connection.close();
+            // Execute command
+            String command = "cmd /c start cmd.exe /K" +
+                    "\"cd assessmentDir && gradlew build\" " ;
+            Process child = Runtime.getRuntime().exec(command);
+        } catch (IOException e) {
         }
-        System.out.println("wahah");
     }
 
     /**
