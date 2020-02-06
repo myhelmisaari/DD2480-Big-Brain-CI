@@ -66,7 +66,8 @@ public class ContinuousIntegrationServer extends AbstractHandler
     private static void cloneTheProject(String gitHubHTTPS) {
         try {
             // Execute command
-            String command = "cmd /c start cmd.exe /C \"git clone "+gitHubHTTPS+" assessmentDir\"";
+            String command = "cmd /c start cmd.exe /C " +
+                    "\"git clone "+gitHubHTTPS+" -b assessment --single-branch assessmentDir\"";
             Process child = Runtime.getRuntime().exec(command);
         } catch (IOException e) {
         }
