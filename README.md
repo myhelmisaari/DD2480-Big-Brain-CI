@@ -15,7 +15,19 @@ If the build was successful there will be a new directory in the project named '
 
 ## Managing the CI-server
 ### Deploy the server
-Using [ngrok](https://ngrok.com/) we can make the server visible on the internet. All you have to do is open a new terminal window and use the command `./ngrok http 8083`. The ngrok service provides a forwarding URL that works for 8 hours.
+Using [ngrok](https://ngrok.com/) we can make the server visible on the internet. 
+If you don't have it installed write the following in the terminal:
+
+```
+#For linux users: 
+curl -LO --tlsv1 https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+unzip ngrok-stable-linux-amd64.zip 
+#For Mac users:
+curl -LO --tlsv1 https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-darwin-386.zip
+unzip ngrok-stable-darwin-386.zip
+```
+
+All you have to do is open a new terminal window and use the command `./ngrok http 8083`. The ngrok service provides a forwarding URL that works for 8 hours.
 
 After this you have to set up a Webhook. This can be done on the Github repository online.
 1. Go to `Settings >> Webhooks`, click on `Add webhook`.
