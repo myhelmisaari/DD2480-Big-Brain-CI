@@ -21,6 +21,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
     private static final String gitHubRepoHTTPS = "https://github.com/myhelmisaari/DD2480-Big-Brain-CI.git";
     private static final String assessmentRepo = "assessmentDir/";
     private static final int port = 8083;
+
     public void handle(String target,
                        Request baseRequest,
                        HttpServletRequest request,
@@ -44,7 +45,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
             e.printStackTrace();
         }
         //Build the assessment branch
-        build();
+        build(assessmentRepo);
         //notify the user
         notifyUser();
     }
@@ -75,10 +76,11 @@ public class ContinuousIntegrationServer extends AbstractHandler
 
 
     /**
-     * This method will build (compile an test) the project contained in the file given
-     *  as argument
+     * This method will build (compile an test) the project contained in the
+     * directory given as argument
+     * @param assessmentRepo the directory that contains the project we want to build
      */
-    private static void build(){
+    private static void build(String assessmentRepo){
         try {
             // Execute command
             String command = "cmd /c start cmd.exe /C" +
