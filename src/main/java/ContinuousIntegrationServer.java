@@ -55,9 +55,12 @@ public class ContinuousIntegrationServer extends AbstractHandler
 //        server.setHandler(new ContinuousIntegrationServer());
 //        server.start();
 //        server.join();
+
+        File localPath = new File("assessmentDir/");
+        FileUtils.deleteDirectory(localPath);
         cloneTheProject("https://github.com/myhelmisaari/DD2480-Big-Brain-CI.git");
         try {
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(7);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -89,7 +92,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
     private static void build(){
         try {
             // Execute command
-            String command = "cmd /c start cmd.exe /K" +
+            String command = "cmd /c start cmd.exe /C" +
                     "\"cd assessmentDir && gradlew build\" " ;
             Process child = Runtime.getRuntime().exec(command);
         } catch (IOException e) {
