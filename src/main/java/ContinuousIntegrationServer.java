@@ -22,6 +22,14 @@ public class ContinuousIntegrationServer extends AbstractHandler
     private static final String assessmentRepo = "assessmentDir/";
     private static final int port = 8083;
 
+    /**
+     * Handles the HTTP requests that are sent to the CI-server.
+     * Provides the main logic of the CI-server.
+     * @param target  the target of the request.
+     * @param baseRequest the original unwrapped request object.
+     * @param request the request either as the Request object or a wrapper of that request.
+     * @param response the response as the Response object or a wrapper of that request.
+     */
     public void handle(String target,
                        Request baseRequest,
                        HttpServletRequest request,
@@ -50,7 +58,6 @@ public class ContinuousIntegrationServer extends AbstractHandler
         notifyUser();
     }
 
-    // used to start the CI server in command line
     public static void main(String[] args) throws Exception
     {
         Server server = new Server(port);
