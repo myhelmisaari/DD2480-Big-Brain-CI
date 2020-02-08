@@ -7,21 +7,31 @@ import static org.junit.jupiter.api.Assertions.*;
 class ContinuousIntegrationServerTest {
 
     @Test
-    void cloneTheProject() {
+    void cloneTheProject_HelloWorldExists() {
         ContinuousIntegrationServer.cloneTheProject(ContinuousIntegrationServer.gitHubRepoHTTPS);
-        File file1 = new File("assessmentDir/src/main/java/HelloWorld.java");
-        assertTrue(file1.exists());
-        File file2 = new File("assessment/src/main/java/GoodbyeWorld.java");
-        assertFalse(file2.exists());
+        File file = new File("assessmentDir/src/main/java/HelloWorld.java");
+        assertTrue(file.exists());
+    }
+
+    @Test
+    void cloneTheProject_GoodByeWorldDoesNotExist() {
+        ContinuousIntegrationServer.cloneTheProject(ContinuousIntegrationServer.gitHubRepoHTTPS);
+        File file = new File("assessmentDir/src/main/java/GoodByeWorld.java");
+        assertFalse(file.exists());
     }
 
 
     @Test
-    void build() {
+    void build_ContinuousIntegrationServerExists() {
         ContinuousIntegrationServer.build(ContinuousIntegrationServer.assessmentRepo);
-        File file1 = new File("build/classes/java/main/ContinuousIntegrationServer.class");
-        File file2 = new File("build/classes/java/main/SlackIntegration.class");
-        File file3 = new File("build/classes/java/main/TestResultsParser.class");
-        assertTrue(file1.exists() && file2.exists() && file3.exists());
+        File file = new File("build/classes/java/main/ContinuousIntegrationServer.class");
+        assertTrue(file.exists());
+    }
+
+    @Test
+    void build_DummyServerDoesNotExist() {
+        ContinuousIntegrationServer.build(ContinuousIntegrationServer.assessmentRepo);
+        File file = new File("build/classes/java/main/DummyServer.class");
+        assertFalse(file.exists());
     }
 }
