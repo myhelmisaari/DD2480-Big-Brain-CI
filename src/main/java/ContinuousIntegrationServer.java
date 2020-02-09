@@ -63,7 +63,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
      * Clones the assessment branch from the GitHub repository given as argument.
      * @param gitHubHTTPS the https of the repository we want to clone
      */
-    public static void cloneTheProject(String gitHubHTTPS) {
+    protected static void cloneTheProject(String gitHubHTTPS) {
         try {
             // Execute command
             String command = "cmd /c start cmd.exe /C " +
