@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class ContinuousIntegrationServer extends AbstractHandler
 {
 
-    private static final String gitHubRepoHTTPS = "https://github.com/myhelmisaari/DD2480-Big-Brain-CI.git";
+    protected static final String gitHubRepoHTTPS = "https://github.com/myhelmisaari/DD2480-Big-Brain-CI.git";
     protected static final String assessmentRepo = "assessmentDir/";
     private static final int port = 8083;
 
