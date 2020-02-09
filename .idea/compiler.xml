@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="Assessment.main" target="11" />
+      <module name="Assessment.test" target="11" />
+      <module name="DD2480-Big-Brain-CI.main" target="1.8" />
+      <module name="DD2480-Big-Brain-CI.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
