@@ -11,6 +11,7 @@ There are two main branches: `master` and `assessment`. The master branch contai
 Tests for the CI-server are written using the `JUnit` library. If you want to run the tests locally, there are two ways.
 * **Using the terminal:** first navigate to the the project folder, then use the command `./gradlew build`. This command builds and tests the project. If you only want to test and not build, use the command `./gradlew test`. For windows machines you can use `gradlew test/build`.
 * **Using IntelliJ:** Open the project in IntelliJ. Right-click on the src-folder and choose `Run 'Tests in DD2480-Big-Brain-CI.test'`. To build the project right-click on the src-folder and choose  `Build module DD2480-Big-Brain-CI`.
+
 If the build was successful there will be a new directory in the project named 'build' that contains the generated classes. If it does not succeed the directory will not contain any generated classes.
 
 ## Managing the CI-server
