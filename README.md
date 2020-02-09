@@ -5,7 +5,7 @@ CI is the second assignment in the course DD2480 Software Engineering Fundamenta
 This implementation of a CI-server is made with Java SDK 11 and IntelliJ; therefore make sure you have these installed. The project that uses the CI-server needs to have `Gradle` installed. For the project to build and run, there must exist a `build.gradle` file in the project, containing the dependencies needed.
 
 ### Branches
-There are two branches: `master` and `assessment`. The master branch contains the CI-server. The assessment branch is simulating a project with a main class and a simple test for it. The purpose of the assessment branch is to use it to test the functionality of the CI-server. 
+There are two main branches: `master` and `assessment`. The master branch contains the CI-server. The assessment branch is simulating a project with a main class and a simple test for it. The purpose of the assessment branch is to use it to test the functionality of the CI-server. 
 
 ## Testing and building locally
 Tests for the CI-server are written using the `JUnit` library. If you want to run the tests locally, there are two ways.
