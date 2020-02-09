@@ -36,7 +36,7 @@ After this you have to set up a Webhook. This can be done on the Github reposito
 Now the CI-server should be ready to be used. 
 
 ### Using the CI-server
-To test the CI-server there is a specific branch prepared. Follow the following steps in the terminal to proceed. These steps assumes you have already cloned the repository.
+To test the CI-server there is a specific branch prepared. Follow the steps below in the terminal to proceed. These steps assumes you have already cloned the repository.
 1. Go to the assessment branch using the command `git checkout -b assessment origin/assessment`
 1. Make a change somewhere
 1. Commit and push the changes to `GitHub`
