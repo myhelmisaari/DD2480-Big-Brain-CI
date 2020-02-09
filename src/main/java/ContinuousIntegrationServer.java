@@ -12,16 +12,12 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
-/**
- Skeleton of a ContinuousIntegrationServer which acts as webhook
- See the Jetty documentation for API documentation of those classes.
-*/
 public class ContinuousIntegrationServer extends AbstractHandler
 {
 
-    protected static final String gitHubRepoHTTPS = "https://github.com/myhelmisaari/DD2480-Big-Brain-CI.git";
-    protected static final String assessmentRepo = "assessmentDir/";
-    private static final int port = 8083;
+    protected static final String GITHUB_REPO_HTTPS = "https://github.com/myhelmisaari/DD2480-Big-Brain-CI.git";
+    protected static final String ASSESSMENT_REPO = "assessmentDir/";
+    private static final int PORT = 8083;
 
     /**
      * Handles the HTTP requests that are sent to the CI-server.
@@ -42,11 +38,11 @@ public class ContinuousIntegrationServer extends AbstractHandler
         baseRequest.setHandled(true);
 
         // Delete the repo if it exists
-        File localPath = new File(assessmentRepo);
+        File localPath = new File(ASSESSMENT_REPO);
         FileUtils.deleteDirectory(localPath);
 
         // Clone the Repo
-        cloneTheProject(gitHubRepoHTTPS);
+        cloneTheProject(GITHUB_REPO_HTTPS);
         //Wait that the repo finish cloning
         try {
             TimeUnit.SECONDS.sleep(7);
@@ -55,14 +51,14 @@ public class ContinuousIntegrationServer extends AbstractHandler
         }
 
         // Build the assessment branch
-        build(assessmentRepo);
+        build(ASSESSMENT_REPO);
         // notify the user
         notifyUser();
     }
 
     public static void main(String[] args) throws Exception
     {
-        Server server = new Server(port);
+        Server server = new Server(PORT);
         server.setHandler(new ContinuousIntegrationServer());
         server.start();
         server.join();
@@ -76,11 +72,11 @@ public class ContinuousIntegrationServer extends AbstractHandler
         try {
             // Execute command
             String command = "cmd /c start cmd.exe /C " +
-                    "\"git clone " + gitHubHTTPS + " -b assessment --single-branch " + assessmentRepo + " \"";
+                    "\"git clone " + gitHubHTTPS + " -b assessment --single-branch " + ASSESSMENT_REPO + " \"";
             Process child = Runtime.getRuntime().exec(command);
             child.waitFor();
         } catch (IOException | InterruptedException e) {
-            SlackIntegration.sendMessage("Clone failed for " + gitHubRepoHTTPS);
+            SlackIntegration.sendMessage("Clone failed for " + GITHUB_REPO_HTTPS);
         }
     }
 
@@ -88,18 +84,17 @@ public class ContinuousIntegrationServer extends AbstractHandler
     /**
      * This method will build (compile an test) the project contained in the
      * directory given as argument
-     * @param assessmentRepo the directory that contains the project we want to build
+     * @param ASSESSMENT_REPO the directory that contains the project we want to build
      */
-    protected static void build(String assessmentRepo){
+    protected static void build(String ASSESSMENT_REPO){
         try {
             // Execute command
             String command = "cmd /c start cmd.exe /C" +
-
-                    "\"cd " + assessmentRepo + "  && gradlew build\" " ;
+                    "\"cd " + ASSESSMENT_REPO + "  && gradlew build\" " ;
             Process child = Runtime.getRuntime().exec(command);
         } catch (IOException e) {
             System.err.println("Error when building");
-            SlackIntegration.sendMessage("Build failed for " + gitHubRepoHTTPS);
+            SlackIntegration.sendMessage("Build failed for " + GITHUB_REPO_HTTPS);
         }
     }
 
