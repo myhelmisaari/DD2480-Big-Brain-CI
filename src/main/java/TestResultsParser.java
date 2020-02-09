@@ -18,7 +18,6 @@ public class TestResultsParser {
      * @return the results of the tests.
      */
     public static List<TestResult> getResults() {
-        if (parsedTestResults != null) return parsedTestResults;
         parsedTestResults = new LinkedList<>();
 
         // find the right xml file(s)
