@@ -2,7 +2,7 @@
 CI is the second assignment in the course DD2480 Software Engineering Fundamentals. The goal of the assignment is to implement a continuous integration server which first clones a repository on GitHub when there are any changes pushed to it, builds the project, runs the tests in the project and notifies the user of the results. 
 
 ## Getting Started
-This implementation of a CI-server is made with Java SDK 11 and IntelliJ; therefore make sure you have these installed. The project that uses the CI-server needs to have `Gradle` installed, due to it being used by the CI-server. There must exist a `build.gradle` file in the project containing the dependencies needed for the project to build and run.
+This implementation of a CI-server is made with Java SDK 11 and IntelliJ; therefore make sure you have these installed. The project that uses the CI-server needs to have `Gradle` installed. For the project to build and run, there must exist a `build.gradle` file in the project, containing the dependencies needed.
 
 ### Branches
 There are two branches: `master` and `assessment`. The master branch contains the CI-server. The assessment branch is simulating a project with a main class and a simple test for it. The purpose of the assessment branch is to use it to test the functionality of the CI-server. 
