@@ -43,12 +43,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
 
         // Clone the Repo
         cloneTheProject(GITHUB_REPO_HTTPS);
-        //Wait that the repo finish cloning
-        try {
-            TimeUnit.SECONDS.sleep(7);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
 
         // Build the assessment branch
         build(ASSESSMENT_REPO);
@@ -78,6 +73,12 @@ public class ContinuousIntegrationServer extends AbstractHandler
         } catch (IOException | InterruptedException e) {
             SlackIntegration.sendMessage("Clone failed for " + GITHUB_REPO_HTTPS);
         }
+
+        try {
+            TimeUnit.SECONDS.sleep(7);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -87,6 +88,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
      * @param ASSESSMENT_REPO the directory that contains the project we want to build
      */
     protected static void build(String ASSESSMENT_REPO){
+        File file = new File("assessmentDir/build/classes/java/main/HelloWorld.class");
         try {
             // Execute command
             String command = "cmd /c start cmd.exe /C" +
@@ -94,7 +96,16 @@ public class ContinuousIntegrationServer extends AbstractHandler
             Process child = Runtime.getRuntime().exec(command);
         } catch (IOException e) {
             System.err.println("Error when building");
+        }
+        try {
+            TimeUnit.SECONDS.sleep(7);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (!file.exists()){
             SlackIntegration.sendMessage("Build failed for " + GITHUB_REPO_HTTPS);
+            System.exit(0);
         }
     }
 
