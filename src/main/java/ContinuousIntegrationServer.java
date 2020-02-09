@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class ContinuousIntegrationServer extends AbstractHandler
 {
     private static final String gitHubRepoHTTPS = "https://github.com/myhelmisaari/DD2480-Big-Brain-CI.git";
-    private static final String assessmentRepo = "assessmentDir/";
+    protected static final String assessmentRepo = "assessmentDir/";
     private static final int port = 8083;
 
     /**
@@ -40,11 +40,11 @@ public class ContinuousIntegrationServer extends AbstractHandler
         response.setStatus(HttpServletResponse.SC_OK);
         baseRequest.setHandled(true);
 
-        //Delete the repo if it exists
+        // Delete the repo if it exists
         File localPath = new File(assessmentRepo);
         FileUtils.deleteDirectory(localPath);
 
-        //Clone the Repo
+        // Clone the Repo
         cloneTheProject(gitHubRepoHTTPS);
         //Wait that the repo finish cloning
         try {
@@ -52,9 +52,9 @@ public class ContinuousIntegrationServer extends AbstractHandler
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //Build the assessment branch
+        // Build the assessment branch
         build(assessmentRepo);
-        //notify the user
+        // notify the user
         notifyUser();
     }
 
@@ -74,10 +74,11 @@ public class ContinuousIntegrationServer extends AbstractHandler
         try {
             // Execute command
             String command = "cmd /c start cmd.exe /C " +
-                    "\"git clone "+gitHubHTTPS+" -b assessment --single-branch "+assessmentRepo+" \"";
+                    "\"git clone " + gitHubHTTPS + " -b assessment --single-branch " + assessmentRepo + " \"";
             Process child = Runtime.getRuntime().exec(command);
             child.waitFor();
         } catch (IOException | InterruptedException e) {
+            SlackIntegration.sendMessage("Clone failed for " + gitHubRepoHTTPS);
         }
     }
 
@@ -91,10 +92,11 @@ public class ContinuousIntegrationServer extends AbstractHandler
         try {
             // Execute command
             String command = "cmd /c start cmd.exe /C" +
-                    "\"cd "+assessmentRepo+"  && gradlew build\" " ;
+                    "\"cd " + assessmentRepo + "  && gradlew build\" " ;
             Process child = Runtime.getRuntime().exec(command);
         } catch (IOException e) {
             System.err.println("Error when building");
+            SlackIntegration.sendMessage("Build failed for " + gitHubRepoHTTPS);
         }
     }
 

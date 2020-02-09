@@ -4,7 +4,6 @@ import org.w3c.dom.Node;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
  * This class can parse the gradle test results generated in build/test-results/test/.
  */
 public class TestResultsParser {
-    private static final File resultsFolder = new File("build/test-results/test/");
+    private static final File resultsFolder = new File(ContinuousIntegrationServer.assessmentRepo + "build/test-results/test/");
     private static List<TestResult> parsedTestResults;
 
     /**
@@ -22,10 +21,14 @@ public class TestResultsParser {
         if (parsedTestResults != null) return parsedTestResults;
         parsedTestResults = new LinkedList<>();
 
-        // find the right xml file
-        //File resultsFile = new File("build/test-results/test/TEST-SlackIntegrationTests.xml");
-        for (File file : resultsFolder.listFiles((dir, name) -> name.endsWith(".xml") && name.startsWith("TEST-"))) {
-            parseResultFile(file);
+        // find the right xml file(s)
+        try {
+            for (File file : resultsFolder.listFiles((dir, name) -> name.endsWith(".xml") && name.startsWith("TEST-"))) {
+                parseResultFile(file);
+            }
+        } catch (NullPointerException e) {
+            // will be empty if no matching files were found
+            return  parsedTestResults;
         }
 
         return parsedTestResults;
