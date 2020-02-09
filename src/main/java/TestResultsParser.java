@@ -4,7 +4,6 @@ import org.w3c.dom.Node;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
  * This class can parse the gradle test results generated in build/test-results/test/.
  */
 public class TestResultsParser {
-    private static final File resultsFolder = new File("build/test-results/test/");
+    private static final File resultsFolder = new File(ContinuousIntegrationServer.assessmentRepo + "build/test-results/test/");
     private static List<TestResult> parsedTestResults;
 
     /**
@@ -22,10 +21,14 @@ public class TestResultsParser {
         if (parsedTestResults != null) return parsedTestResults;
         parsedTestResults = new LinkedList<>();
 
-        // find the right xml file
-        //File resultsFile = new File("build/test-results/test/TEST-SlackIntegrationTests.xml");
-        for (File file : resultsFolder.listFiles((dir, name) -> name.endsWith(".xml") && name.startsWith("TEST-"))) {
-            parseResultFile(file);
+        // find the right xml file(s)
+        try {
+            for (File file : resultsFolder.listFiles((dir, name) -> name.endsWith(".xml") && name.startsWith("TEST-"))) {
+                parseResultFile(file);
+            }
+        } catch (NullPointerException e) {
+            // will be empty if no matching files were found
+            return  parsedTestResults;
         }
 
         return parsedTestResults;
@@ -72,14 +75,14 @@ public class TestResultsParser {
      * A TestResult is a model for the data generated after running tests in gradle.
      */
     static class TestResult {
-        private final String testSuiteName;
-        private final String hostName;
-        private final int testsCount;
-        private final int skippedCount;
-        private final int errorCount;
-        private final int failureCount;
-        private final String time;
-        private final String timestamp;
+        protected final String testSuiteName;
+        protected final String hostName;
+        protected final int testsCount;
+        protected final int skippedCount;
+        protected final int errorCount;
+        protected final int failureCount;
+        protected final String time;
+        protected final String timestamp;
 
         public TestResult(String testSuiteName, String hostName, int testsCount, int skippedCount, int errorCount, int failureCount, String time, String timestamp) {
             this.testSuiteName = testSuiteName;
