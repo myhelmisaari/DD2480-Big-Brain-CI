@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 */
 public class ContinuousIntegrationServer extends AbstractHandler
 {
+
     private static final String gitHubRepoHTTPS = "https://github.com/myhelmisaari/DD2480-Big-Brain-CI.git";
     protected static final String assessmentRepo = "assessmentDir/";
     private static final int port = 8083;
@@ -70,7 +71,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
      * Clones the assessment branch from the GitHub repository given as argument.
      * @param gitHubHTTPS the https of the repository we want to clone
      */
-    private static void cloneTheProject(String gitHubHTTPS) {
+    protected static void cloneTheProject(String gitHubHTTPS) {
         try {
             // Execute command
             String command = "cmd /c start cmd.exe /C " +
@@ -88,7 +89,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
      * directory given as argument
      * @param assessmentRepo the directory that contains the project we want to build
      */
-    private static void build(String assessmentRepo){
+    protected static void build(String assessmentRepo){
         try {
             // Execute command
             String command = "cmd /c start cmd.exe /C" +
