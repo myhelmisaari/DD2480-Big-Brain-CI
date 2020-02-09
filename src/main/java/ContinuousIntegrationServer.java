@@ -80,7 +80,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
      * directory given as argument
      * @param assessmentRepo the directory that contains the project we want to build
      */
-    public static void build(String assessmentRepo){
+    protected static void build(String assessmentRepo){
         try {
             // Execute command
             String command = "cmd /c start cmd.exe /C" +
