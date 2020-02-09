@@ -3,6 +3,6 @@ public class HelloWorld {
         System.out.println("HelloWorld!");
     }
     public static int returnOne(){
-        return 100;
+        return 10;
     }
 }
