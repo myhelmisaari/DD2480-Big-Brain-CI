@@ -75,14 +75,14 @@ public class TestResultsParser {
      * A TestResult is a model for the data generated after running tests in gradle.
      */
     static class TestResult {
-        private final String testSuiteName;
-        private final String hostName;
-        private final int testsCount;
-        private final int skippedCount;
-        private final int errorCount;
-        private final int failureCount;
-        private final String time;
-        private final String timestamp;
+        protected final String testSuiteName;
+        protected final String hostName;
+        protected final int testsCount;
+        protected final int skippedCount;
+        protected final int errorCount;
+        protected final int failureCount;
+        protected final String time;
+        protected final String timestamp;
 
         public TestResult(String testSuiteName, String hostName, int testsCount, int skippedCount, int errorCount, int failureCount, String time, String timestamp) {
             this.testSuiteName = testSuiteName;
