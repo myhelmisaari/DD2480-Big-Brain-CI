@@ -11,7 +11,7 @@ import java.util.List;
  * This class can parse the gradle test results generated in build/test-results/test/.
  */
 public class TestResultsParser {
-    private static final File resultsFolder = new File(ContinuousIntegrationServer.assessmentRepo + "build/test-results/test/");
+    private static final File resultsFolder = new File(ContinuousIntegrationServer.ASSESSMENT_REPO + "build/test-results/test/");
     private static List<TestResult> parsedTestResults;
 
     /**

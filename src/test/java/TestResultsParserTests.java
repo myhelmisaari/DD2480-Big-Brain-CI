@@ -16,13 +16,6 @@ public class TestResultsParserTests {
     }
 
     @Test
-    void noResultsWithoutBuild() {
-        List<TestResultsParser.TestResult> testResults = TestResultsParser.getResults();
-        assertNotNull(testResults);
-        assertEquals(0, testResults.size());
-    }
-
-    @Test
     void canParseresultsXML() {
         createDummyTestResults();
         List<TestResultsParser.TestResult> testResults = TestResultsParser.getResults();
