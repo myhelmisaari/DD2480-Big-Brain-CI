@@ -64,8 +64,8 @@ _Axel Kennedal_
     
 _My Helmisaari_
  * this README
- * Compiling and testing with GradleConnector
-
+ * debugging and testing the server
+ * fixed bugs
        
 _Henrik Mellin_
  * Webhook GitHub
